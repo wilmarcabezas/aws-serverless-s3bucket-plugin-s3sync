@@ -1,0 +1,25 @@
+service: deploy-s3-bucket-upload-demo
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  hello:
+    handler: handler.hello
+
+plugins:
+  - serverless-s3-sync
+
+custom:
+  s3Sync:
+    - bucketName: s3uploaddemobucket-wilmarux
+      localDir: uploadData
+
+resources:
+  Resources:
+    DemoBucketUpload:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: s3uploaddemobucket-wilmarux
